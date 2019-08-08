@@ -72,6 +72,14 @@ config DEVFREQ_GOV_PASSIVE
 	  through sysfs entries. The passive governor recommends that
 	  devfreq device uses the OPP table to get the frequency/voltage.
 
+config DEVFREQ_GOV_QCOM_ADRENO_TZ
+	tristate "Qualcom  Adreno Trustzone"
+	depends on QCOM_KGSL && QCOM_SCM
+	help
+	  Trustzone based governor for the Adreno GPU.
+	  Sets the frequency using a "on-demand" algorithm.
+	  This governor is unlikely to be useful for other devices.
+
 config DEVFREQ_GOV_CPUFREQ
 	tristate "CPUfreq"
 	depends on CPU_FREQ
@@ -97,6 +105,15 @@ config ARM_MEMLAT_MON
 	  monitor the memory latency characteristics of an ARM CPU workload.
 	  This driver uses these counters to implement the APIs needed by
 	  the mem_latency devfreq governor.
+
+config ADRENO_IDLER
+	tristate "MSM Adreno idler"
+	depends on DEVFREQ_GOV_QCOM_ADRENO_TZ
+	help
+	  Uses a different calculation method on top of Adreno TZ
+	  just for calculating frequency for idle to reduce the
+	  wasted power coming from stock Adreno TZ while
+	  maintaining high-performance.
 
 config QCOMCCI_HWMON
 	tristate "QTI CCI Cache monitor hardware"
